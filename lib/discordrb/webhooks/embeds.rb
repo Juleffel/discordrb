@@ -70,6 +70,12 @@ module Discordrb::Webhooks
     # @return [EmbedImage, nil] image for this embed
     attr_accessor :image
 
+    # @see EmbedVideo
+    # @example Add a video to an embed
+    #   embed.video = Discordrb::Webhooks::EmbedVideo.new(url: 'https://i.imgur.com/PcMltU7.jpg')
+    # @return [EmbedVideo, nil] video for this embed
+    attr_accessor :video
+
     # @see EmbedThumbnail
     # @example Add a thumbnail to an embed
     #   embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: 'https://i.imgur.com/xTG3a1I.jpg')
@@ -159,6 +165,25 @@ module Discordrb::Webhooks
     end
 
     # @return [Hash] a hash representation of this embed image, to be converted to JSON.
+    def to_hash
+      {
+        url: @url
+      }
+    end
+  end
+
+  # An embed's video will be displayed at the bottom, in large format. It will replace a footer icon URL if one is set.
+  class EmbedVideo
+    # @return [String, nil] URL of the video
+    attr_accessor :url
+
+    # Creates a new video object.
+    # @param url [String, nil] The URL of the video.
+    def initialize(url: nil)
+      @url = url
+    end
+
+    # @return [Hash] a hash representation of this embed video, to be converted to JSON.
     def to_hash
       {
         url: @url
